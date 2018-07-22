@@ -1,28 +1,29 @@
 import random
-
-pythonscore = 0
-playerscore = 0
+import os
 
 def revealnumber(number, guess):
   print "I was thinking of the number " + str(number) + " and you said " + guess 
-  
+  if number == int(guess):
+    print name + " WINS!!!"
+  else:
+    print "Python WINS!!!"
+    
 def score():
-  global pythonscore 
-  global playerscore
-  global name
+  global pythonscore, playerscore, name
   print "SCORE"
-  print "Python: " + str(pythonscore)
-  print name + ": " + str(playerscore)
+  print "Python: " + str(pythonscore) + "      " + name + ": " + str(playerscore)
   
 def play():
   global game
   global pythonscore 
   global playerscore
+  
+  os.system("clear")
   if game == "yes":
-    print "If you can guess the number I'm thinking of between 1 and 10 you win. If you get it wrong you lose."
-    number = random.randint(1, 10)
+    print "If you can guess the number I'm thinking of between 1 and 5 you win. If you get it wrong you lose."
+    number = random.randint(1, 5)
     guess = raw_input("What number am I thinking of?")
-    if number == guess:
+    if number == int(guess):
       playerscore = playerscore + 1
       revealnumber(number, guess)
       score()
@@ -31,7 +32,7 @@ def play():
       pythonscore = pythonscore + 1
       revealnumber(number, guess)
       score()
-      again = raw_input("You lose! Would you like to play again?")
+      again = raw_input("Would you like to play again?")
       if again == "yes":
         play()
       elif again == "no":
@@ -59,9 +60,12 @@ def loop():
     print "I only understand yes or no. I'm pretty dumb thanks to my creator. So if i make a mistake it's his fault."
     loop()
 
+os.system("clear")
 print "Hello. My name is Python."
 name = raw_input("What is your name?") 
 print name + "! That is a beautful name. I'll remember that."
 game = None 
+pythonscore = 0
+playerscore = 0
 loop()
 
