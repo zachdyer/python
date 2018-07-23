@@ -2,7 +2,7 @@ import random
 import os
 
 name = None
-
+  
 def init():
   global name
   os.system("clear")
@@ -11,8 +11,9 @@ def init():
   print name + "! That is a beautful name. I'll remember that."
   confirm()
   main_menu()
-
+  
 def main_menu():
+  global name
   os.system("clear")
   print("What would you like to do, " + name + "? Enter the number of the option.")
   print("1. Play the guessing game")
@@ -20,20 +21,19 @@ def main_menu():
   print("3. Quit")
   option = raw_input()
   if option == "1":
-    guessgame = GuessGame()
-    guessgame.play()
+    GuessGame()
   elif option == "2":
-    diceroller = DiceRoller()
-    diceroller.main_menu()
+    DiceRoller()
   elif option == "3":
     print "And you wonder why you have no friends."
   else:
-    print "I only understand yes or no. I'm pretty dumb thanks to my creator. So if i make a mistake it's his fault."
-    main_menu()
-    
+    print "I only understand the number of the option. I'm pretty dumb thanks to my creator. So if i make a mistake it's his fault."
+    self.main_menu()
+      
 def confirm():
   raw_input("Press enter to continue...")
-  
+  os.system("clear")
+
 def is_number(s):
   try:
     int(s)
@@ -48,8 +48,12 @@ class GuessGame():
   player_roll = None
   python_roll = None
   
+  def __init__(self):
+    self.play()
+  
   def play(self):
     global name
+    os.system("clear")
     print "If you can guess the number I'm thinking of between 1 and 5 you win."
     print "If you get it wrong you lose."
     self.python_roll = random.randint(1,5)
@@ -85,8 +89,10 @@ class GuessGame():
   def again(self):
     again = raw_input("Would you like to play again?")
     if again == "yes":
+      os.system("clear")
       self.play()
     elif again == "no":
+      os.system("clear")
       self.score()
       print "Thanks for playing! Goodbye, " + name
       if self.player_score == self.python_score:
@@ -103,6 +109,12 @@ class GuessGame():
       self.again()
     
 class DiceRoller():
+  
+  player_score = 0
+  python_score = 0
+  
+  def __init__(self):
+    self.main_menu()
   
   def main_menu(self):
     os.system("clear")
@@ -129,18 +141,45 @@ class DiceRoller():
     player = random.randint(1,6)
     python = random.randint(1,6)
     print "You rolled a " + str(player) + " and I rolled a " + str(python) + "."
-    confirm()
     if player == python:
       print "You tied me."
-      confirm()
-      self.main_menu()
+      self.score()
+      self.again()
     elif player > python:
+      self.player_score = self.player_score + 1
       print "You win!"
-      confirm()
+      self.score()
+      self.again()
+    else:
+      self.python_score = self.python_score + 1
+      print "I win!"
+      self.score()
+      self.again()
+  
+  def again(self):
+    again = raw_input("Would you like to play again?")
+    if again == "yes":
+      self.play_python()
+    elif again == "no":
+      self.game_over()
       self.main_menu()
     else:
-      print "I win!"
+      print "I'm sorry but I only understand yes or no. It's not you it's me."
+      self.again()
+  
+  def score(self):
+    print "SCORE"
+    print name + ": " + str(self.player_score) + "       Python: " + str(self.python_score)
+    
+  def game_over(self):
+    if self.player_score == self.python_score:
+      print "Thanks for playing. I guess we are evenly matched."
       confirm()
-      self.main_menu()
-
+    elif self.player_score > self.python_score:
+      print "It's offical. You're better than me. But that's okay because I'll still be here assuming my creator doesn't screw it up."
+      confirm()
+    else:
+      print "See you later loser. Come back when you grow a pair."
+      confirm()
+    
 init()
