@@ -1,9 +1,4 @@
-import random
-import os
-import datetime
-from python import Python
+import defs
 
-name = None
-
-Python()
+defs.init()
       

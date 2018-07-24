@@ -1,7 +1,12 @@
 import os
+from python import Python
 from healthadviser import HealthAdvisor
 from guessgame import GuessGame
 from diceroller import DiceRoller
+
+def init():
+  global python
+  python = Python()
 
 def confirm():
   raw_input("Press enter to continue...")

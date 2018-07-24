@@ -1,5 +1,6 @@
 import os
 import datetime
+import defs
 
 class HealthAdvisor():
   
@@ -38,7 +39,7 @@ class HealthAdvisor():
       year = raw_input()
       if is_year(year) == False:
         print year + " is not year. Your health is no laughing matter " + name + "."
-        confirm()
+        defs.confirm()
         what_year()
       return int(year)
     
@@ -47,7 +48,7 @@ class HealthAdvisor():
       month = raw_input()
       if is_month(month) == False:
         print month + " is not a month that I understand. Just give me the number of the month and that will be good enough."
-        confirm()
+        defs.confirm()
         what_month()
       return int(month)
       
@@ -81,7 +82,7 @@ class HealthAdvisor():
         check_patient_file = raw_input()
         if check_patient_file == "yes":
           print "Good. You can be confident I know how to write."
-          confirm()
+          defs.confirm()
           return True
         elif check_patient_file == "no":
           print "I guess I suck at being a doctor"
@@ -128,3 +129,4 @@ class HealthAdvisor():
       print "Since this is your first appointment with me I have a few questions to get to know you better."
       birthdate = get_birthdate()
     raw_input("Press enter to continue...")
+    defs.main_menu()
